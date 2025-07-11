@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenan Mengüç - Academic Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+
+        /* Navigation Styles */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: #3498db;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .page {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Home Page Styles */
+        .hero {
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            background: #95a5a6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .bio-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .bio-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .bio-text h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .bio-text p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .contact-info h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        /* Category Pages */
+        .category-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .category-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+
+        .project-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+
+        .project-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .project-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .project-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .project-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #2980b9;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: #3498db;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #2c3e50;
+                flex-direction: column;
+                padding: 1rem 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 0.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .bio-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .header-content {
+                position: relative;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .profile-photo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Kenan Mengüç</div>
+                <nav>
+                    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+                    <ul id="nav-menu">
+                        <li><a href="#" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#" onclick="showPage('sports')">Sports</a></li>
+                        <li><a href="#" onclick="showPage('health')">Health</a></li>
+                        <li><a href="#" onclick="showPage('social-media')">Social Media</a></li>
+                        <li><a href="#" onclick="showPage('traffic')">Traffic</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <div class="profile-photo">
+                        <img src="myphoto.jpg" alt="Kenan Mengüç" width="200" />
+                        
+                    </div>
+                    <h1>Kenan Mengüç</h1>
+                    <p>Academic Researcher & Scholar</p>
+                </div>
+            </section>
+
+            <section class="bio-section">
+                <div class="container">
+                    <div class="bio-content">
+                        <div class="bio-text">
+                            <h2>About Me</h2>
+                            <p>Welcome to my academic portfolio. I am a dedicated researcher with extensive experience in multiple interdisciplinary fields including sports science, health research, social media analytics, and traffic studies.</p>
+                            <p>My research focuses on the intersection of technology and human behavior, exploring how digital platforms influence various aspects of our daily lives. I am particularly interested in data-driven approaches to understanding complex social phenomena.</p>
+                            <p>Through my work, I aim to bridge the gap between theoretical research and practical applications, contributing to evidence-based solutions for real-world challenges.</p>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Contact Information</h3>
+                            <p><strong>Email:</strong> menguck@itu.edu.tr & kenanmenkuc@gmail.com </p>
+                            <p><strong>Phone:</strong> +90(535) 227-19XX</p>
+                            <p><strong>Office:</strong> MSB  Room 105</p>
+                            <p><strong>University:</strong> Istanbul Technical University</p>
+                            <p><strong>Department:</strong>Industrial Engineering </p>
+                            <p><strong>Address:</strong>İTÜ Maçka Campus, Faculty of Management, 34367, Maçka, İstanbul / Türkiye</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sports Page -->
+        <div id="sports" class="page">
+            <section class="category-header">
+                <div class="container">
+                    <h1>Sports Research</h1>
+                    <p>Exploring the intersection of sports, technology, and human performance</p>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="center-title">Smart Offensive Route Analysis</h3>
+                        <p>This application analyzes football match data to identify the safest and most efficient offensive routes. Using a mathematical model built on seasonal data, it helps optimize field organization and provides an experimental proposal for real-world testing..</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: March 2019</span>
+                            <a href="https://www.scitepress.org/PublishedPapers/2019/79178/79178.pdf" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="center-title">Smart Defensive  Analysis</h3>
+                        <p>This application analyzes football match data to determine the safest and most effective defensive routes. A mathematical model built on seasonal data helps improve defensive positioning and strategy, offering an experimental proposal for on-field validation.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: January 2022</span>
+                            <a href="https://www.scitepress.org/PublishedPapers/2019/79178/79178.pdf" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="center-title">Optimal Transfer Compatibility Model</h3>
+                        <p>This application uses databases like Opta Sports to identify players whose profiles best match the existing squad. It analyzes performance data to predict the potential contribution of each transfer and recommends the most compatible players to maximize team success.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: November 2024</span>
+                            <a href="https://www.tarupublications.com/doi/10.47974/JIOS-1049" target="_blank">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Health Page -->
+        <div id="health" class="page">
+            <section class="category-header">
+                <div class="container">
+                    <h1>Health Research</h1>
+                    <p>Advancing healthcare through interdisciplinary research and innovation</p>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>T-Cell Binding Prediction Model</h3>
+                        <p>High-Accuracy Amino Acid Recognition Model This model enables complex amino acid chains 
+                            to accurately recognize each other, triggering the body's defense response against 
+                            abnormal conditions such as cancer, diabetes, or viral infections. 
+                            It accelerates laboratory workflows and supports the development of targeted therapies</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published:  2026</span>
+                            <a href="#" class="project-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Optimal mRNA Squence Desing</h3>
+                        <p>This project focuses on designing ideal mRNA coding sequences to produce inhibitory proteins that prevent the uncontrolled proliferation of cancer cells.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: 2026</span>
+                            <a href="#" class="project-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Healthcare Supply Chain Optimization</h3>
+                        <p>This project designs an optimal health supply chain for emergencies, including vaccination, first aid, and medicine distribution. It uses regional GIS data, 
+                            population metrics, and service conditions to ensure efficient and timely delivery.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: October 2023</span>
+                            <a href=https://www.researchgate.net/profile/Mesut-Ulu/publication/369898967_Optimisation_of_COVID-19_vaccination_process_using_GIS_machine_learning_and_the_multi-layered_transportation_model/links/6431be734e83cd0e2f9d3944/Optimisation-of-COVID-19-vaccination-process-using-GIS-machine-learning-and-the-multi-layered-transportation-model.pdf" target="_blank">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Social Media Page -->
+        <div id="social-media" class="page">
+            <section class="category-header">
+                <div class="container">
+                    <h1>Social Media Research ana Generative AI </h1>
+                    <p> Adapting to Social Media and Artificial Intelligence </p>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3> Career Skill Roadmap Platform</h3>
+                        <p>With so many new tools emerging every day, it’s hard to know which ones to learn. This platform aggregates demand data from major job boards to show which skills and applications are most sought after, 
+                            helping professionals build a clear roadmap for career development.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: April 2026</span>
+                            <a href="#" class="project-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Sentimental Analysis and Social Media Usage</h3>
+                        <p>Social Media Analysis Model for Disaster Response. This model analyzes social media data during disasters to capture public sentiment, community reactions, and emerging information. 
+                        It helps authorities manage communication and coordinate response efforts effectively.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: January 2024</span>
+                            <a href="#" class="project-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Spatiotemporal Disaster Analysis</h3>
+                        <p>This project analyzes valuable social media data collected during disasters to track when and where events unfold. It provides real-time insights 
+                            into the geographic spread and timing of crisis impacts.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: September 2026</span>
+                            <a href="#" class="project-link">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Traffic Page -->
+        <div id="traffic" class="page">
+            <section class="category-header">
+                <div class="container">
+                    <h1>Traffic Research</h1>
+                    <p>Innovative solutions for transportation and urban mobility challenges</p>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Intelligent Traffic Signal System</h3>
+                        <p>Every city and road has its own unique traffic pattern. This project designs traffic lights tailored to each intersection’s identity. Using agent-based systems, the smart controller learns local traffic behavior to reduce waiting times at red lights.
+
+</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: March 2026</span>
+                            <a href="#" class="project-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Optimal Traffic Network Design for Growing Cities</h3>
+                        <p>This project models how new roads will impact existing urban traffic flows. It develops road designs tailored to the complex structure of traffic networks, 
+                            helping cities plan efficient, adaptive transportation systems.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: June 2023</span>
+                            <a href="https://www.sciencedirect.com/science/article/pii/S0378437123002935?casa_token=7SGFcQDiRCoAAAAA:4jCz9J5ylKTB27hmmdMcSBlGx1nxb6dzlRygm4V9yUKTllEcZoXHZhlCQznsU2LYCgYIxFBs5tU" target="_blank">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Accident Prediction Models</h3>
+                        <p>These models predict potential accidents in advance by combining features such as road structure, time of day, traffic patterns, and weather conditions. 
+                            They identify high-risk areas throughout the day to improve safety and prevent collisions.</p>
+                        <div class="project-meta">
+                            <span class="project-date">Published: August 2023</span>
+                            <a href="https://www.sciopen.com/article/10.32604/cmc.2024.052323" target="_blank">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Get In Touch</h2>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Kenan Mengüç. All rights reserved. | Academic Portfolio</p>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Close mobile menu if open
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Contact form handling
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! You can send your message to kenanmenkuc@gmail.com ');
+            this.reset();
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('nav-menu');
+            const toggleBtn = document.querySelector('.mobile-menu-toggle');
+            
+            if (!navMenu.contains(e.target) && !toggleBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
